@@ -1,0 +1,52 @@
+import javax.swing.*;
+import java.awt.*;
+import java.util.HashMap;
+
+public class LoginPage extends JFrame {
+    private JTextField txtUser;
+    private JPasswordField txtPass;
+    private JButton btnLogin;
+    private HashMap<String, String> students = new HashMap<>();
+    private HashMap<String, String> admins = new HashMap<>();
+
+    public LoginPage() {
+        setTitle("Course Registration Portal - Login");
+        setSize(400, 250);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new GridLayout(4, 2, 10, 10));
+
+        students.put("student1", "pass123");
+        admins.put("admin", "admin123");
+
+        add(new JLabel("Username:"));
+        txtUser = new JTextField();
+        add(txtUser);
+
+        add(new JLabel("Password:"));
+        txtPass = new JPasswordField();
+        add(txtPass);
+
+        add(new JLabel(""));
+        btnLogin = new JButton("Login");
+        add(btnLogin);
+
+        btnLogin.addActionListener(e -> {
+            String user = txtUser.getText();
+            String pass = new String(txtPass.getPassword());
+
+            if (admins.containsKey(user) && admins.get(user).equals(pass)) {
+                dispose();
+                new AdminDashboard();
+            } else if (students.containsKey(user) && students.get(user).equals(pass)) {
+                dispose();
+                new StudentDashboard(user);
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid username or password!");
+            }
+        });
+
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+}
+ 
