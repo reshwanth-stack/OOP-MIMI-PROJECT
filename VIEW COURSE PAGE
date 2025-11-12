@@ -1,0 +1,24 @@
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+
+public class ViewCoursesPage extends JFrame {
+    public ViewCoursesPage() {
+        setTitle("Available Courses");
+        setSize(600, 300);
+
+        String[] cols = {"Course ID", "Course Name", "Instructor", "Seats"};
+        Object[][] data = {
+            {"CS101", "Computer Science Basics", "Dr. Kumar", 5},
+            {"DS102", "Data Structures", "Prof. Rao", 2},
+            {"AI103", "Intro to AI", "Dr. Meena", 3},
+            {"DB104", "Database Systems", "Dr. Siva", 0}
+        };
+
+        JTable table = new JTable(new DefaultTableModel(data, cols));
+        add(new JScrollPane(table), BorderLayout.CENTER);
+
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+}
