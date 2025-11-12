@@ -1,0 +1,56 @@
+import javax.swing.*;
+import java.awt.*;
+import java.util.*;
+
+public class CourseRegistrationPage extends JFrame {
+    private static Set<String> registeredCourses = new HashSet<>();
+    private Map<String, Integer> courseSeats = new HashMap<>();
+
+    public CourseRegistrationPage(String username) {
+        setTitle("Course Registration");
+        setSize(400, 200);
+        setLayout(new GridLayout(3, 2, 10, 10));
+
+        courseSeats.put("CS101", 5);
+        courseSeats.put("DS102", 0);
+        courseSeats.put("AI103", 3);
+        courseSeats.put("DB104", 2);
+
+        add(new JLabel("Enter Course ID:"));
+        JTextField txtCourse = new JTextField();
+        add(txtCourse);
+
+        JButton btnRegister = new JButton("Register");
+        add(new JLabel(""));
+        add(btnRegister);
+
+        btnRegister.addActionListener(e -> {
+            String courseId = txtCourse.getText().trim().toUpperCase();
+
+            if (!courseSeats.containsKey(courseId)) {
+                JOptionPane.showMessageDialog(this, "Invalid Course ID!");
+                return;
+            }
+            if (registeredCourses.contains(courseId)) {
+                JOptionPane.showMessageDialog(this, "Already Registered!");
+                return;
+            }
+            int seats = courseSeats.get(courseId);
+            if (seats <= 0) {
+                JOptionPane.showMessageDialog(this, "Seats Full!");
+                return;
+            }
+
+            registeredCourses.add(courseId);
+            courseSeats.put(courseId, seats - 1);
+            JOptionPane.showMessageDialog(this, "Registration Successful!");
+        });
+
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    public static Set<String> getRegisteredCourses() {
+        return registeredCourses;
+    }
+}
