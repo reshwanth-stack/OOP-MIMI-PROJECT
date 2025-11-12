@@ -1,0 +1,40 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class StudentDashboard extends JFrame {
+    private String username;
+
+    public StudentDashboard(String username) {
+        this.username = username;
+
+        setTitle("Welcome, " + username);
+        setSize(400, 300);
+        setLayout(new GridLayout(5, 1, 10, 10));
+
+        JLabel title = new JLabel("Student Dashboard", SwingConstants.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 18));
+        add(title);
+
+        JButton btnViewCourses = new JButton("View Courses");
+        JButton btnRegister = new JButton("Register for Course");
+        JButton btnMyCourses = new JButton("View Registered Courses");
+        JButton btnLogout = new JButton("Logout");
+
+        add(btnViewCourses);
+        add(btnRegister);
+        add(btnMyCourses);
+        add(btnLogout);
+
+        btnViewCourses.addActionListener(e -> new ViewCoursesPage());
+        btnRegister.addActionListener(e -> new CourseRegistrationPage(username));
+        btnMyCourses.addActionListener(e -> new ViewRegisteredCoursesPage(username));
+        btnLogout.addActionListener(e -> {
+            dispose();
+            JOptionPane.showMessageDialog(this, "Thank you for using the Course Registration Portal!");
+            new LoginPage();
+        });
+
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+}
